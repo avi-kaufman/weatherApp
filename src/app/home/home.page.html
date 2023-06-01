@@ -1,20 +1,48 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      WeatherNow
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="main">
+    <ion-searchbar [(ngModel)]="cityName" (ionChange)="getWeatherData()"></ion-searchbar>
+    <span class="city">{{ res.name }}</span>
+    <span class="date">{{ res.dt * 1000 | date }}</span>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div class="icon">
+      <img [src]="'../../assets/' + res.weather[0].icon + '.svg'" alt="Weather icon">
+    </div>
+    
+
+    <span class="description">{{ res.weather[0].description }}</span>
+    <span class="temperature">{{ res.main.temp | number: '1.0-0'}}°c</span>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-icon name="thermometer" slot="start"></ion-icon>
+        <ion-label>Min Temperature</ion-label>
+        <ion-badge slot="end">{{ res.main.temp_min | number: '1.0-0'}}°c</ion-badge>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="thermometer" slot="start"></ion-icon>
+        <ion-label>Max Temperature</ion-label>
+        <ion-badge slot="end">{{ res.main.temp_max | number: '1.0-0'}}°c</ion-badge>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="water" slot="start"></ion-icon>
+        <ion-label>Humidity</ion-label>
+        <ion-badge slot="end">{{ res.main.humidity }}%</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  
+  
   </div>
+
+<div id="weather-results"></div>
+
 </ion-content>
